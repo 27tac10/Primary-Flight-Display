@@ -226,6 +226,11 @@ assets/
   renders text via a texture atlas. No instrument or flight-logic changes — this
   is the payoff of the `DrawList`/`Backend` split, and it moves the project
   toward the real avionics stack (OpenGL SC).
+- **Manual keyboard control** of airspeed, altitude, and heading (adjust each
+  live from the keyboard instead of the scripted profile). Planned post-v1; the
+  `SimulatedDataSource` already anticipates optional keyboard input, so this is
+  an additive change with no architectural impact. v1 ships with the scripted
+  demo profile only.
 - Possible further instruments: vertical-speed indicator, slip/skid, flight
   director.
 
