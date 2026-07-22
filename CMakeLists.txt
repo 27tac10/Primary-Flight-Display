@@ -14,7 +14,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(PrimaryFlightDisplay src/app/main.cpp src/core/SimulatedDataSource.cpp)
+add_executable(PrimaryFlightDisplay src/app/main.cpp src/core/SimulatedDataSource.cpp src/render/SDLBackend.cpp)
 
 target_link_libraries(PrimaryFlightDisplay PRIVATE SDL2::SDL2 SDL2::SDL2main)
 
