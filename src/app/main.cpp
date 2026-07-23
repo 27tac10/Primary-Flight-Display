@@ -1,6 +1,9 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "../render/SDLBackend.h"
+#include "../core/SimulatedDataSource.h"
+#include "../core/Layout.h"
+#include "../instruments/AttitudeIndicator.h"
 
 using namespace std;
 
@@ -28,24 +31,22 @@ int main() {
         SDL_Quit();
         return 1;
     }
-
+    
     SDLBackend backend(renderer);
-    DrawList drawList;
+    SimulatedDataSource dataSource;
+    AttitudeIndicator attitudeIndicator;
 
-    FilledPolygonCommand traiangle;
-    traiangle.listOfPoints = {{300, 150}, {400, 350}, {200, 350}};
-    traiangle.fillColor = {1.0, 0.0, 0.0, 1.0};
-    drawList.push_back(traiangle);
+    int windowWidth, windowHeight;
+    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+    Rectangle region = computeAttitudeIndicatorRegion(windowWidth, windowHeight);
 
-    TextCommand label;
-    label.text = "Hello PFD";
-    label.position = {300, 100};
-    label.anchor = TextAnchor::Center;
-    label.fontSize = 32;
-    label.color = {1.0, 1.0, 1.0, 1.0};
-    drawList.push_back(label);
 
+    Uint32 lastTicks = SDL_GetTicks();
     while (running) {
+        Uint32 currentTicks = SDL_GetTicks();
+        double dt = (currentTicks - lastTicks) / 1000.0;
+        lastTicks = currentTicks;
+
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)) {
@@ -56,6 +57,8 @@ int main() {
         SDL_SetRenderDrawColor(renderer, 20, 20, 30, 255);
         SDL_RenderClear(renderer);
 
+        FlightState state = dataSource.update(dt);
+        DrawList drawList = attitudeIndicator.render(state, region);
         backend.render(drawList);
 
         SDL_RenderPresent(renderer);
