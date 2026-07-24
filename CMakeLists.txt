@@ -29,5 +29,9 @@ target_include_directories(PrimaryFlightDisplay PRIVATE ${SDL2_GFX_INCLUDE_DIR})
 target_link_libraries(PrimaryFlightDisplay PRIVATE SDL2::SDL2 SDL2::SDL2main ${SDL2_GFX_LIBRARY} ${SDL2_TTF_LIBRARY})
 target_include_directories(PrimaryFlightDisplay PRIVATE ${SDL2_GFX_INCLUDE_DIR} ${SDL2_TTF_INCLUDE_DIR})
 
-add_executable(PrimaryFlightDisplayTests tests/test_simulated_data_source.cpp src/core/SimulatedDataSource.cpp)
+add_executable(PrimaryFlightDisplayTests 
+                tests/test_attitude_indicator.cpp 
+                tests/test_simulated_data_source.cpp 
+                src/core/SimulatedDataSource.cpp
+                src/instruments/AttitudeIndicator.cpp)
 target_link_libraries(PrimaryFlightDisplayTests PRIVATE Catch2::Catch2WithMain)
