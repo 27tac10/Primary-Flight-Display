@@ -1,3 +1,5 @@
 build/
 *.dSYM/
 /main
+*.o
+.DS_Store
