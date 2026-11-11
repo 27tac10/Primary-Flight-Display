@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "Aircraft.h"
-#include "PFD.h"
+#include "TextPFD.h"
 
 int main() {
     Aircraft aircraft;
@@ -17,16 +17,16 @@ int main() {
     aircraft.setHeading(90.0);
     aircraft.setSlip(0.0);
 
-    PFD pfd(aircraft);
-    pfd.display();
+    TextPFD textPfd(aircraft);
+    textPfd.display();
 
-    // Change data through the Aircraft; the PFD should show the new values.
+    // Change data through the Aircraft; the TextPFD should show the new values.
     aircraft.setAltitude(10500.0);
     aircraft.setHeading(-5.0);  // wraps to 355
     aircraft.setSlip(0.3);
 
     std::cout << "\n(after update)\n";
-    pfd.display();
+    textPfd.display();
 
     return 0;
 }

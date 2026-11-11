@@ -1,7 +1,7 @@
 #intermediate Makefile example
 #SRCS, PROG, and pet.o are the only place to update. 
 
-SRCS=main.cpp Aircraft.cpp PFD.cpp
+SRCS=main.cpp Aircraft.cpp TextPFD.cpp
 #OBJS=${SRCS:S/cpp$/o/g}
 OBJS=${SRCS:.cpp=.o}
 PROG=main
@@ -17,9 +17,9 @@ all: ${PROG}
 ${PROG}: ${OBJS}
 		${CXX} ${CXXFLAGS} -o $@ ${OBJS}
 
-main.o: main.cpp Aircraft.h PFD.h FlightData.h
+main.o: main.cpp Aircraft.h TextPFD.h FlightData.h
 Aircraft.o: Aircraft.cpp Aircraft.h FlightData.h
-PFD.o: PFD.cpp PFD.h Aircraft.h FlightData.h
+TextPFD.o: TextPFD.cpp TextPFD.h Aircraft.h FlightData.h
 
 clean: 
 		@rm -f ${PROG} ${OBJS}

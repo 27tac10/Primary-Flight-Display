@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#include "PFD.h"
+#include "TextPFD.h"
 
 namespace {
 
@@ -16,13 +16,13 @@ std::string slipDescription(double slip) {
 
 } // namespace
 
-void PFD::display() const {
+void TextPFD::display() const {
     const FlightData& d = aircraft.getData();
 
     // Round heading first so 359.6 shows as 000, not 360.
     int heading = static_cast<int>(std::lround(d.heading)) % 360;
 
-    std::cout << "========== PFD ==========\n"
+    std::cout << "======= Text PFD ========\n"
               << std::format("Flight        : {}\n", d.flightNumber)
               << std::format("Attitude      : pitch {:+.1f} deg   bank {:+.1f} deg\n", d.pitch, d.bank)
               << std::format("Airspeed      : {:.0f} kt\n", d.airspeed)
